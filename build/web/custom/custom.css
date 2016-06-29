@@ -1,0 +1,51 @@
+body {
+  background: #333;
+}
+
+#dz {
+  position: relative;
+  border: 10px dotted white;
+  background: #333;
+  border-radius: 20px;
+  color: white;
+  font: bold 24px/200px arial;
+  height: 400px;
+  margin: 30px auto;
+  text-align: center;
+  width: 600px;
+}
+
+#my-awesome-dropzone.hover {
+  border: 10px solid #FE5;
+  color: #FE5;
+}
+
+#my-awesome-dropzone.dropped {
+  background: #222;
+  border: 10px solid #444;
+}
+
+#my-awesome-dropzone div {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+#my-awesome-dropzone img {
+  border-radius: 10px;
+  vertical-align: middle;
+  max-width: 95%;
+  max-height: 95%;
+}
+
+#my-awesome-dropzone [type="file"] {
+  cursor: pointer;
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
