@@ -84,24 +84,27 @@ this.sequenceNumber = 0;
     }
 
     private boolean connectToSPN() {
-
+        System.out.println("Connecting to spn....id: " + this.myID +   " configpath: " +  configPath);
         boolean output = true;
         try{
        
            this.mbc = new MessageBrokerClient(this.myID,configPath);
+            System.out.println("Connected with success!");
         }catch(Exception e){
             System.out.println("[Sender] Problems connecting to SPN");
             System.out.println(e.toString());
             output = !output;
         }
+        
         return output;
     }
 
     private boolean registerToChannel(){
-        System.out.println("[Sender] Registering to channel.");
+        System.out.println("[Sender] Registering to channel: "  + channelTag);
         boolean output = true;
         try{
            output = mbc.register(this.channelTag).isOpSuccess();
+            System.out.println("Registered with success");
         }catch (Exception e){
             System.out.println("[Sender] Problems subscribing.");
             System.out.println(e.toString());
