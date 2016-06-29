@@ -136,17 +136,24 @@ public class Upload extends HttpServlet {
 		return output;
 	}
 
-	private void sendToSPN(HttpServletRequest request){
+private void sendToSPN(HttpServletRequest request){
 		try {
-                   
 			// ---> buffer is written in the format: [ [NAME SIZE 4byte] [FILE NAME Nbytes] [FILE Nbytes] ]
-		
-                       final Part p = request.getPart("file");
+			final Part p = request.getPart("file");
 			InputStream is = p.getInputStream();
-			byte[] filename = "teste".getBytes();
+			byte[] filename = this.extractFileName(p).getBytes();
+			ByteBuffer bb = ByteBuffer.allocate(filename.length+is.available()+4);
+			bb.putInt(filename.length);
+			bb.put(filename);
+			System.out.println("Size of the filename from BYTES: "+filename.length);
+			//System.out.println("Filename converting from bytes: "+new String(filename,));
+			bb.put(this.getBytes(is));
+			byte [] buffer = this.compress(bb.array());
+			//byte[] buffer = this.getBytes(is);
+			//System.out.println("Buffer for file: "+filename+" has size: "+buffer.length);
 			Event e = new Event();
 			e.setClientId(this.conf.getProperty("spnClientID"));
-			e.setPayload(this.encrypt(filename));
+			e.setPayload(this.encrypt(buffer));
 			e.setId(this.sequenceNumber);
 			if(mbc.publish(e, this.conf.getProperty("channelTag")).isOpSuccess()){
 				System.out.println("Published: "+e.getPayload().length+" bytes with sucess");
@@ -160,7 +167,7 @@ public class Upload extends HttpServlet {
 		
 
 	}
-	
+
 	private byte[] compress(byte[] target) throws IOException{
 		return CompressorUtils.compress(target);
 	}
