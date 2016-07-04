@@ -59,8 +59,7 @@ import pt.ul.fc.di.navigators.trone.mgt.MessageBrokerClient;
     public int sendMessage(AbstractMessage object) {
         Date d = new Date();
         Calendar c = new GregorianCalendar();
-        System.out.println(c.getTime().toString() + "SPN: Sending: " + object.getPayload());
-
+       
         Event e = new Event();
 
         int status = 0;
@@ -72,7 +71,6 @@ import pt.ul.fc.di.navigators.trone.mgt.MessageBrokerClient;
 
         try {
             if (mbc.publish(e, channelTag).isOpSuccess()) {
-                System.out.println("Published: " + e.getPayload().length + " bytes with sucess");
                 this.sequenceNumber++;
             } else {
                 System.out.println("Content was not published");
