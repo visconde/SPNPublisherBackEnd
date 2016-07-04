@@ -26,6 +26,7 @@ import com.spn.responses.AbstractMessage;
 import com.spn.responses.TemperatureMessage;
 import com.spn.utils.Configs;
 import java.io.BufferedReader;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
@@ -38,6 +39,7 @@ public class Temperature extends HttpServlet {
 
    
     public static Integer currentTemperature;
+    public static ConcurrentLinkedQueue<Integer> temperatureValues;
     public Thread threadBft;
     public Thread threadCft;
    // SPNSender spnSender;
@@ -45,6 +47,7 @@ public class Temperature extends HttpServlet {
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
         
+       this.temperatureValues = new ConcurrentLinkedQueue<Integer>();
        
         try {
            currentTemperature = 25;
@@ -92,7 +95,7 @@ public class Temperature extends HttpServlet {
         String requestBody = getRequestBody(request);
         TemperatureMessage msg = new Gson().fromJson(requestBody, TemperatureMessage.class);
         currentTemperature = msg.getTemperature();
-
+        this.temperatureValues.add(currentTemperature);
 //     if (this.canSend) {
 //            spnSender.sendMessage(msg);
 //        } else {

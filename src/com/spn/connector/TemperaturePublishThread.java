@@ -35,15 +35,17 @@ public class TemperaturePublishThread implements Runnable {
          //   Configs conf = new Configs();
             SPNSender spnSender = new SPNSender(configs);
             Boolean canSend = (spnSender.connectAndRegister());
-
+            
+            
             while (canSend) {
-               
-                int currentTemperature = Temperature.currentTemperature;
-                TemperatureMessage msg = new TemperatureMessage();
-                msg.setTemperature(currentTemperature);
+                int numberOfValues = Temperature.temperatureValues.size();
+                for(int i = 0; i<numberOfValues; i++){
+                    //int currentTemperature = Temperature.temperatureValues.poll();
+                    TemperatureMessage msg = new TemperatureMessage();
+                    msg.setTemperature(Temperature.temperatureValues.poll());
+                    spnSender.sendMessage(msg);
+                }
                 
-                spnSender.sendMessage(msg);
-
                 Thread.sleep(1000);
             }
         } catch (Exception ex) {
