@@ -37,8 +37,8 @@ import pt.ul.fc.di.navigators.trone.mgt.MessageBrokerClient;
 @WebServlet("/Temperature")
 public class Temperature extends HttpServlet {
 
-   
-    public static Integer currentTemperature;
+    
+   public static Integer currentTemperature;
     public static ConcurrentLinkedQueue<Integer> temperatureValues;
     public Thread threadBft;
     public Thread threadCft;
@@ -95,7 +95,7 @@ public class Temperature extends HttpServlet {
         String requestBody = getRequestBody(request);
         TemperatureMessage msg = new Gson().fromJson(requestBody, TemperatureMessage.class);
         currentTemperature = msg.getTemperature();
-        this.temperatureValues.add(currentTemperature);
+        temperatureValues.add(currentTemperature);
 //     if (this.canSend) {
 //            spnSender.sendMessage(msg);
 //        } else {

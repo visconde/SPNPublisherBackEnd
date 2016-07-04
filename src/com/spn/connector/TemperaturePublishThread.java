@@ -46,6 +46,13 @@ public class TemperaturePublishThread implements Runnable {
                     spnSender.sendMessage(msg);
                 }
                 
+                if (numberOfValues == 0){
+                     TemperatureMessage msg = new TemperatureMessage();
+                    msg.setTemperature(Temperature.currentTemperature);
+                    spnSender.sendMessage(msg);
+               
+                }
+                
                 Thread.sleep(1000);
             }
         } catch (Exception ex) {
