@@ -44,7 +44,7 @@ public class Upload extends HttpServlet {
 		super.init(config);
 
 		try {
-			conf = new Configs();
+			conf = new Configs(Configs.CFT_CONFIGS);
 		} catch (IOException e) {
 			System.out.println("Problems reading configs");
 			System.out.println(e.toString());
@@ -153,7 +153,8 @@ private void sendToSPN(HttpServletRequest request){
 			//System.out.println("Buffer for file: "+filename+" has size: "+buffer.length);
 			Event e = new Event();
 			e.setClientId(this.conf.getProperty("spnClientID"));
-			e.setPayload(this.encrypt(buffer));
+			//e.setPayload(this.encrypt(buffer));
+                        e.setPayload(buffer);
 			e.setId(this.sequenceNumber);
 			if(mbc.publish(e, this.conf.getProperty("channelTag")).isOpSuccess()){
 				System.out.println("Published: "+e.getPayload().length+" bytes with sucess");

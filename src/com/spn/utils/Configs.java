@@ -11,22 +11,23 @@ public class Configs {
 	
 	Properties props;
 	
-	private static final String PROPS_LOCATION="config.properties";
+	public static final String BFT_CONFIGS="config.properties";
+	public static final String CFT_CONFIGS="cft.config.properties";
 	
 	
 	
-	public Configs() throws IOException{
+	public Configs(String filename) throws IOException{
 		
 		this.props = new Properties();
                // File f = new File(PROPS_LOCATION);
 		//InputStream is= new FileInputStream(f);
         
-		InputStream is = getClass().getClassLoader().getResourceAsStream(PROPS_LOCATION);
+		InputStream is = getClass().getClassLoader().getResourceAsStream(filename);
 		
 		if(is != null){
 			props.load(is);
 		}else{
-			throw new FileNotFoundException("The file: "+PROPS_LOCATION+" was not found!");
+			throw new FileNotFoundException("The file: "+filename+" was not found!");
 		}
 	}
 	
