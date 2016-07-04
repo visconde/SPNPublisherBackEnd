@@ -42,13 +42,13 @@ public class TemperaturePublishThread implements Runnable {
                 for(int i = 0; i<numberOfValues; i++){
                     //int currentTemperature = Temperature.temperatureValues.poll();
                     TemperatureMessage msg = new TemperatureMessage();
-                    msg.setTemperature(Temperature.temperatureValues.poll());
+                    msg.setTemperature(Temperature.temperatureValues.poll().toString());
                     spnSender.sendMessage(msg);
                 }
                 
                 if (numberOfValues == 0){
                      TemperatureMessage msg = new TemperatureMessage();
-                    msg.setTemperature(Temperature.currentTemperature);
+                    msg.setTemperature(Temperature.currentTemperature.toString());
                     spnSender.sendMessage(msg);
                
                 }

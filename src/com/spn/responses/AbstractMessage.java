@@ -15,20 +15,20 @@ import java.util.UUID;
 public abstract  class AbstractMessage implements Serializable{
 
     private UUID id;
-    private Long timestamp;
+    private String timestamp;
 
 public AbstractMessage(){
 
     id = UUID.randomUUID();
-   timestamp = System.currentTimeMillis();
+   timestamp = System.currentTimeMillis()+"";
 
 }
 
-    public Long getTimestamp() {
+    public String getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(Long timestamp) {
+    public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
     }
 

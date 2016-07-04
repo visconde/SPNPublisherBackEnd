@@ -8,7 +8,7 @@ package com.spn.responses;
 public class TemperatureMessage extends AbstractMessage  {
 
 
-    private Integer temperature;
+    private String temperature;
 
     public TemperatureMessage(){
         super();
@@ -20,11 +20,11 @@ public class TemperatureMessage extends AbstractMessage  {
         return temperature;
     }
 
-    public Integer getTemperature() {
+    public String getTemperature() {
         return temperature;
     }
 
-    public void setTemperature(Integer temperature) {
+    public void setTemperature(String temperature) {
         this.temperature = temperature;
     }
 }

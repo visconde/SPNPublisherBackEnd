@@ -85,7 +85,7 @@ public class Temperature extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         TemperatureMessage tempResponse = new TemperatureMessage();
-        tempResponse.setTemperature(currentTemperature);
+        tempResponse.setTemperature(currentTemperature.toString());
         writeJsonResponse(response, tempResponse);
 
     }
@@ -94,7 +94,7 @@ public class Temperature extends HttpServlet {
 
         String requestBody = getRequestBody(request);
         TemperatureMessage msg = new Gson().fromJson(requestBody, TemperatureMessage.class);
-        currentTemperature = msg.getTemperature();
+        currentTemperature = Integer.parseInt(msg.getTemperature());
         temperatureValues.add(currentTemperature);
 //     if (this.canSend) {
 //            spnSender.sendMessage(msg);
